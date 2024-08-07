@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Death Certificate Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            margin-top: 0;
+        }
+        
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Fill the details to generate Death Certificate / मृत्यू प्रमाणपत्र जनरेट करण्यासाठी तपशील भरा</h2>
+        <form id="deathForm">
+            <label for="localArea">स्थानिक क्षेत्र / Local Area:</label>
+            <input type="text" id="localArea" name="localArea" required>
+
+            <label for="tahsil">तालुका / Tahsil:</label>
+            <input type="text" id="tahsil" name="tahsil" required>
+
+            <label for="district">जिल्हा / District:</label>
+            <input type="text" id="district" name="district" required>
+
+            <label for="deceasedName">मृत व्यक्तीचे नाव / Full Name of Deceased:</label>
+            <input type="text" id="deceasedName" name="deceasedName" required>
+
+            <label for="sex">लिंग / Sex:</label>
+            <input type="text" id="sex" name="sex" required>
+
+            <label for="dateOfDeath">मृत्यूची तारीख / Date of Death:</label>
+            <input type="text" id="dateOfDeath" name="dateOfDeath" required>
+
+            <label for="placeOfDeath">मृत्यू स्थळ / Place of Death:</label>
+            <input type="text" id="placeOfDeath" name="placeOfDeath" required>
+
+            <label for="motherName">आईचे नाव / Full Name of Mother:</label>
+            <input type="text" id="motherName" name="motherName" required>
+
+            <label for="fatherName">वडिलांचे नाव / Full Name of Father/Husband:</label>
+            <input type="text" id="fatherName" name="fatherName" required>
+
+            <label for="addressAtDeath">मृत्यूच्या वेळी पत्ता / Address of the Deceased at the Time of Death:</label>
+            <input type="text" id="addressAtDeath" name="addressAtDeath" required>
+
+            <label for="permanentAddress">मृत व्यक्तीचा कायमचा पत्ता / Permanent Address of the Deceased:</label>
+            <input type="text" id="permanentAddress" name="permanentAddress" required>
+
+            <label for="registrationNo">नोंदणी क्रमांक / Registration No.:</label>
+            <input type="text" id="registrationNo" name="registrationNo" required>
+
+            <label for="dateOfRegistration">नोंदणी तारीख / Date of Registration:</label>
+            <input type="text" id="dateOfRegistration" name="dateOfRegistration" required>
+
+            <label for="dateOfIssue">प्रमाणपत्र दिल्याची तारीख / Date of Issue:</label>
+            <input type="text" id="dateOfIssue" name="dateOfIssue" required>
+
+            <label for="remarks">टिप्पणी (असल्यास) / Remarks (If any):</label>
+            <input type="text" id="remarks" name="remarks">
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyCQqcNs_WylAHdyofUE1dQlQWCUco-SF72B7fdXyZtjMWTINNb4V4YCUw_yhG-XgQ/exec'; // Replace with your Google Apps Script web app URL
+        const form = document.getElementById('deathForm');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const formData = new FormData(form);
+
+            fetch(scriptURL, {
+                    method: 'POST',
+                    body: new URLSearchParams(formData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'Success') {
+                        alert('फॉर्म यशस्वीपणे सबमिट केला गेला आहे.');
+                        window.location.href = 'displays.html'; // Redirect after successful submission
+                    } else {
+                        alert('फॉर्म सबमिट करण्यात त्रुटी: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('फॉर्म सबमिट करण्यात त्रुटी: ' + error.message);
+                });
+        });
+    </script>
+</body>
+
+</html>
